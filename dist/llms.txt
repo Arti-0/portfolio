@@ -2,13 +2,24 @@
 
 > Personal portfolio of Andréas Bodin: web developer, UI/UX designer, and co-founder & CTO of Andoxa (B2B SaaS). Based in France.
 
+## Work
+
+- [Andoxa](https://andoxa.fr): co-founder & CTO since 2025 — sole developer of two full product generations. V2 in production: gov-data enrichment for B2B prospecting (Next.js 16, Convex, Clerk, AI planning agent with cost caps, GDPR by design).
+- [Ciel — Andoxa V1](https://github.com/Arti-0/Ciel): a year of solo product engineering, source-visible — multi-tenant CRM on Postgres RLS, Stripe, 29 Playwright suites, ~141k lines of TypeScript.
+- Agent orchestration platform (private): ~79k lines of TypeScript running Claude Code jobs across repos — disposable git worktrees, deterministic verify gates, SSE streaming, voice input.
+
 ## Experience
 
-- [Andoxa](https://github.com/Arti-0/Andoxa): co-founder & CTO since 2025, leading product and engineering of a B2B SaaS
+- Andoxa (2025–now): Co-founder & CTO
 - DipFab (Jul–Sep 2023): CTO, Data Scientist & LLM Engineer — ML model deployment, React web application, LLM/NLP work
 - Coxidev (Jun–Jul 2022): Back-end Developer & UX/UI Designer — PowerApps and Azure web applications
 - Decrease (Jun–Jul 2022): Web Developer & UX/UI Designer — Figma design, responsive development
 
+## CV
+
+- [CV (PDF, French)](/CV-Andreas-Bodin.pdf)
+
 ## Contact
 
 - [Email](mailto:andreas.bodin8@gmail.com): andreas.bodin8@gmail.com
+- [GitHub](https://github.com/Arti-0)

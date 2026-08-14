@@ -12,12 +12,8 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:title" content="Andréas Bodin — Developer, Designer, CTO" />
     <meta property="og:description" content="Building products from first sketch to shipped system." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Fragment+Mono:ital@0;1&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" href="/fonts/Archivo.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/FragmentMono.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
@@ -33,7 +29,8 @@
       <nav class="site-head__nav" aria-label="Primary">
         <a href="#roles">Practice</a>
         <a href="#andoxa">Andoxa</a>
-        <a href="#experience">Experience</a>
+        <a href="#work">Work</a>
+        <a href="/CV-Andreas-Bodin.pdf" download>CV</a>
         <a href="#contact" class="site-head__cta">Contact</a>
       </nav>
     </header>
@@ -41,9 +38,10 @@
     <main id="top">
       <!-- ============ HERO ============ -->
       <section class="hero" id="hero">
-        <canvas class="hero__canvas" id="field-canvas" aria-hidden="true"></canvas>
+        <canvas class="hero__canvas" data-field-output aria-hidden="true"></canvas>
+        <canvas data-field-source hidden aria-hidden="true"></canvas>
         <div class="hero__inner">
-          <p class="hero__eyebrow mono" data-reveal>Portfolio — 2026&ensp;/&ensp;Based in France</p>
+          <p class="hero__eyebrow mono" data-reveal data-scramble>Portfolio — 2026&ensp;/&ensp;Based in France</p>
           <h1 class="hero__title" aria-label="Andréas Bodin">
             <span class="hero__line"><span class="hero__word" data-split>ANDRÉAS</span></span>
             <span class="hero__line hero__line--indent"><span class="hero__word" data-split>BODIN</span></span>
@@ -69,7 +67,7 @@
       <!-- ============ PRACTICE / ROLES ============ -->
       <section class="roles section--bone" id="roles">
         <header class="section-head" data-reveal>
-          <span class="section-head__index mono">Practice</span>
+          <span class="section-head__index mono" data-scramble>Practice</span>
           <h2 class="section-head__title">Three hats,<br />one craft.</h2>
         </header>
         <div class="roles__grid">
@@ -111,28 +109,72 @@
             <p class="andoxa__role">Co-founder &amp; CTO</p>
             <div>
               <p class="andoxa__desc">
-                For the past year I've led product and engineering at Andoxa, a
-                B2B SaaS — from the first architecture diagram to production.
+                I lead product and engineering at Andoxa, a B2B SaaS built on
+                French public data — and I write all of it: two full product
+                generations, from the first architecture diagram to production.
                 Building a company turned out to be the deepest design problem
-                I've found: every choice about the stack is a choice about the
-                team.
+                I've found.
               </p>
-              <a
-                class="andoxa__link mono"
-                href="https://github.com/Arti-0/Andoxa"
-                target="_blank"
-                rel="noopener"
-                >GitHub ↗</a
-              >
+              <p class="andoxa__links">
+                <a class="andoxa__link mono" href="https://andoxa.fr" target="_blank" rel="noopener">andoxa.fr ↗</a>
+                <a class="andoxa__link mono" href="https://github.com/Arti-0/Ciel" target="_blank" rel="noopener">V1 source — Ciel ↗</a>
+              </p>
             </div>
           </div>
         </div>
       </section>
 
+      <!-- ============ SELECTED WORK ============ -->
+      <section class="work section--bone" id="work">
+        <header class="section-head" data-reveal>
+          <span class="section-head__index mono" data-scramble>Selected work</span>
+          <h2 class="section-head__title">Built, shipped,<br />documented.</h2>
+        </header>
+        <ol class="work__list">
+          <li class="work__row" data-reveal>
+            <span class="work__index mono">01</span>
+            <div class="work__body">
+              <h3 class="work__name">Andoxa — V2</h3>
+              <p class="work__desc">
+                Gov-data enrichment for B2B prospecting. Next.js 16, Convex,
+                Clerk, an AI planning agent with hard cost caps, and
+                GDPR-by-design data machinery. In production.
+              </p>
+            </div>
+            <a class="work__link mono" href="https://andoxa.fr" target="_blank" rel="noopener">Live ↗</a>
+          </li>
+          <li class="work__row" data-reveal>
+            <span class="work__index mono">02</span>
+            <div class="work__body">
+              <h3 class="work__name">Ciel — Andoxa V1</h3>
+              <p class="work__desc">
+                A year of solo product engineering, source-visible: multi-tenant
+                CRM on Postgres row-level security, Stripe billing, 29
+                Playwright suites, ~141k lines of TypeScript.
+              </p>
+            </div>
+            <a class="work__link mono" href="https://github.com/Arti-0/Ciel" target="_blank" rel="noopener">Source ↗</a>
+          </li>
+          <li class="work__row" data-reveal>
+            <span class="work__index mono">03</span>
+            <div class="work__body">
+              <h3 class="work__name">Agent orchestration platform</h3>
+              <p class="work__desc">
+                Personal infrastructure that runs Claude Code jobs across my
+                repos: disposable git worktrees, deterministic verify gates,
+                multi-terminal SSE streaming, voice input. ~79k lines of
+                TypeScript, a quarter of it tests.
+              </p>
+            </div>
+            <span class="work__link work__link--flat mono">Private</span>
+          </li>
+        </ol>
+      </section>
+
       <!-- ============ EXPERIENCE ============ -->
       <section class="xp section--bone" id="experience">
         <header class="section-head" data-reveal>
-          <span class="section-head__index mono">Experience</span>
+          <span class="section-head__index mono" data-scramble>Experience</span>
           <h2 class="section-head__title">The road here.</h2>
         </header>
         <ol class="xp__list">
@@ -163,20 +205,22 @@
       <section class="tools" aria-label="Tools and techniques">
         <div class="tools__track" data-marquee>
           <span class="tools__set mono">
-            TypeScript · React · Next.js · Node.js · Python · LLMs · Azure ·
-            Three.js · GSAP · Figma · Tailwind · PostgreSQL · Supabase · Docker
-            · Git · CI/CD · Design systems · Prototyping · WebGL ·&nbsp;
+            TypeScript · React · Next.js · Node.js · Convex · Python · LLMs ·
+            AI agents · Three.js · GSAP · Figma · Tailwind · PostgreSQL ·
+            Supabase · Git · CI/CD · Design systems · WebGL ·&nbsp;
           </span>
           <span class="tools__set mono" aria-hidden="true">
-            TypeScript · React · Next.js · Node.js · Python · LLMs · Azure ·
-            Three.js · GSAP · Figma · Tailwind · PostgreSQL · Supabase · Docker
-            · Git · CI/CD · Design systems · Prototyping · WebGL ·&nbsp;
+            TypeScript · React · Next.js · Node.js · Convex · Python · LLMs ·
+            AI agents · Three.js · GSAP · Figma · Tailwind · PostgreSQL ·
+            Supabase · Git · CI/CD · Design systems · WebGL ·&nbsp;
           </span>
         </div>
       </section>
 
       <!-- ============ CONTACT ============ -->
       <section class="contact section--ultra" id="contact">
+        <canvas class="field-layer" data-field-output aria-hidden="true"></canvas>
+        <canvas data-field-source hidden aria-hidden="true"></canvas>
         <p class="contact__eyebrow mono" data-reveal>Open to ambitious projects</p>
         <h2 class="contact__title" aria-label="Let's build.">
           <span class="hero__line"><span data-split>LET'S</span></span>
@@ -187,7 +231,7 @@
         </a>
         <footer class="footer">
           <p class="mono">© 2026 Andréas Bodin</p>
-          <p class="mono">Built by hand — Three.js &amp; GSAP</p>
+          <p class="mono">Built by hand — canvas-ui &amp; GSAP</p>
         </footer>
       </section>
     </main>

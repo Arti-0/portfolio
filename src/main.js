@@ -1,14 +1,70 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { createField } from "./field.js";
+import { mountField } from "./effects.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* ---------- WebGL field (hero) ---------- */
+/* ---------- canvas-ui ForceField layers ---------- */
 
-createField(document.getElementById("field-canvas"), { reducedMotion });
+if (!reducedMotion) {
+  /* Hero — ultramarine hexagon lattice over the void, revealed by the cursor */
+  mountField(document.getElementById("hero"), {
+    shape: "hexagon",
+    color: [0.106, 0.173, 0.757],
+    edgeColor: [1.0, 0.522, 0.322],
+    opacity: 0.55,
+    cellScale: 22,
+    lineWidth: 0.03,
+    gridOpacity: 0.1,
+    gridReveal: "both",
+    gridRevealStrength: 1.4,
+    gridRevealRadius: 320,
+    flashSpeed: 0.6,
+    flashIntensity: 0.25,
+    flowScale: 3.5,
+    flowSpeed: 0.5,
+    flowIntensity: 0.7,
+    edgeGlow: 0.7,
+    edgeFalloff: 0.25,
+    haze: 0.15,
+    grain: 0.12,
+    rippleIntensity: 2.2,
+    hoverGlow: 0.8,
+    hoverRadius: 260,
+    pageReact: 0,
+    tint: 0,
+    dim: 0,
+  });
+
+  /* Contact — quiet bone triangles over the ultramarine block */
+  mountField(document.getElementById("contact"), {
+    shape: "triangle",
+    color: [0.925, 0.918, 0.882],
+    edgeColor: [1.0, 0.522, 0.322],
+    opacity: 0.16,
+    cellScale: 16,
+    lineWidth: 0.02,
+    gridOpacity: 0.12,
+    gridReveal: "hover",
+    gridRevealStrength: 1.0,
+    gridRevealRadius: 300,
+    flashSpeed: 0.3,
+    flashIntensity: 0.12,
+    flowScale: 2.5,
+    flowSpeed: 0.3,
+    flowIntensity: 0.4,
+    edgeGlow: 0,
+    haze: 0,
+    grain: 0,
+    rippleIntensity: 1.2,
+    hoverGlow: 0.4,
+    pageReact: 0,
+    tint: 0,
+    dim: 0,
+  });
+}
 
 /* ---------- Split display words into chars ---------- */
 
@@ -19,10 +75,31 @@ document.querySelectorAll("[data-split]").forEach((el) => {
   for (const ch of text) {
     const span = document.createElement("span");
     span.className = "char";
-    span.textContent = ch === " " ? " " : ch;
+    span.textContent = ch === " " ? " " : ch;
     el.appendChild(span);
   }
 });
+
+/* ---------- Decrypt-style scramble on mono labels ---------- */
+
+const SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&/";
+
+function scramble(el, duration = 850) {
+  const original = el.textContent;
+  const start = performance.now();
+  const tick = (now) => {
+    const p = Math.min(1, (now - start) / duration);
+    const keep = Math.ceil(p * original.length);
+    let out = original.slice(0, keep);
+    for (const ch of original.slice(keep)) {
+      out += /\s/.test(ch) ? ch : SCRAMBLE_CHARS[(Math.random() * SCRAMBLE_CHARS.length) | 0];
+    }
+    el.textContent = out;
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = original;
+  };
+  requestAnimationFrame(tick);
+}
 
 /* ---------- Manifesto: wrap words for scrubbed reveal ---------- */
 
@@ -74,7 +151,11 @@ if (reducedMotion) {
       { y: 0, duration: 1.1, stagger: 0.045, ease: "power4.out" },
       "-=0.25"
     )
-    .to(heroReveals, { opacity: 1, y: 0, duration: 0.8, stagger: 0.12 }, "-=0.7");
+    .to(heroReveals, { opacity: 1, y: 0, duration: 0.8, stagger: 0.12 }, "-=0.7")
+    .add(() => {
+      const eyebrow = document.querySelector(".hero [data-scramble]");
+      if (eyebrow) scramble(eyebrow);
+    }, "-=0.9");
 
   /* Scroll reveals everywhere below the hero */
   document.querySelectorAll("main > :not(.hero) [data-reveal]").forEach((el) => {
@@ -84,6 +165,10 @@ if (reducedMotion) {
       duration: 0.9,
       ease: "power3.out",
       scrollTrigger: { trigger: el, start: "top 85%" },
+      onStart: () => {
+        const label = el.querySelector("[data-scramble]") ?? (el.matches("[data-scramble]") ? el : null);
+        if (label && !label.closest(".hero")) scramble(label, 700);
+      },
     });
   });
 

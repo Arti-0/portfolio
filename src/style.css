@@ -611,3 +611,129 @@ a {
     transform: none;
   }
 }
+
+/* ============================================================
+   Self-hosted fonts (subset woff2 — replaces Google Fonts)
+   ============================================================ */
+
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/Archivo.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fragment Mono";
+  src: url("/fonts/FragmentMono.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fragment Mono";
+  src: url("/fonts/FragmentMono-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ============================================================
+   Selected work
+   ============================================================ */
+
+.work {
+  padding: clamp(5rem, 14vh, 9rem) var(--gutter);
+}
+
+.work__list {
+  list-style: none;
+  border-top: 1px solid rgb(16 18 58 / 0.18);
+}
+
+.work__row {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid rgb(16 18 58 / 0.18);
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.no-js .work__row,
+html:not(.js) .work__row {
+  opacity: 1;
+  transform: none;
+}
+
+.work__index {
+  color: var(--ultra);
+}
+
+.work__name {
+  font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.35rem;
+}
+
+.work__desc {
+  max-width: 46rem;
+  color: rgb(16 18 58 / 0.72);
+}
+
+.work__link {
+  color: var(--ultra);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.work__link:hover {
+  color: var(--flare);
+}
+
+.work__link--flat {
+  color: rgb(16 18 58 / 0.45);
+}
+
+@media (max-width: 640px) {
+  .work__row {
+    grid-template-columns: 2.2rem 1fr;
+  }
+  .work__link {
+    grid-column: 2;
+  }
+}
+
+/* ============================================================
+   canvas-ui field layers (contact)
+   ============================================================ */
+
+.contact {
+  position: relative;
+  isolation: isolate;
+}
+
+.field-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.contact > :not(.field-layer) {
+  position: relative;
+  z-index: 1;
+}
+
+.andoxa__links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
