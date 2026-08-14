@@ -737,3 +737,19 @@ html:not(.js) .work__row {
   gap: 1.5rem;
   flex-wrap: wrap;
 }
+
+.work__oss {
+  margin-top: 1.6rem;
+  color: rgb(16 18 58 / 0.6);
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.work__oss a {
+  color: var(--ultra);
+  text-decoration: none;
+}
+
+.work__oss a:hover {
+  color: var(--flare);
+}
