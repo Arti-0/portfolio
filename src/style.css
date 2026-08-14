@@ -899,3 +899,33 @@ a {
     margin-left: clamp(0.75rem, 6vw, 9rem);
   }
 }
+
+/* ============================================================
+   Glass Andoxa mark (canvas-ui GlassObject, lazy-loaded)
+   ============================================================ */
+
+.andoxa {
+  position: relative;
+}
+
+.andoxa__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.andoxa__object {
+  position: absolute;
+  right: calc(var(--gutter) * 0.5);
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(36vw, 28rem);
+  aspect-ratio: 1;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .andoxa__object {
+    display: none;
+  }
+}

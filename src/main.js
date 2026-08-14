@@ -66,6 +66,22 @@ if (!reducedMotion) {
   });
 }
 
+/* ---------- Glass Andoxa mark (lazy — pulls Three.js only when needed) ---------- */
+
+const glassCanvas = document.getElementById("andoxa-object");
+if (glassCanvas && !reducedMotion) {
+  const io = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        io.disconnect();
+        import("./object.js").then(({ mountGlassLogo }) => mountGlassLogo(glassCanvas));
+      }
+    },
+    { rootMargin: "600px" }
+  );
+  io.observe(glassCanvas);
+}
+
 /* ---------- Mobile menu (functional even with reduced motion) ---------- */
 
 const menuBtn = document.getElementById("menu-btn");
