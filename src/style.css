@@ -913,19 +913,42 @@ a {
   z-index: 1;
 }
 
+.andoxa__row {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 3rem);
+}
+
 .andoxa__object {
-  position: absolute;
-  right: calc(var(--gutter) * 0.5);
-  top: 50%;
-  transform: translateY(-50%);
-  width: min(36vw, 28rem);
+  width: clamp(6.5rem, 13vw, 10.5rem);
   aspect-ratio: 1;
-  z-index: 0;
-  pointer-events: none;
+  flex: none;
+  cursor: grab;
+}
+
+.andoxa__object:active {
+  cursor: grabbing;
+}
+
+.andoxa__row .andoxa__title {
+  font-size: clamp(2.6rem, 9vw, 8.5rem);
+}
+
+.contact__liquid {
+  width: min(60vw, 20rem);
+  aspect-ratio: 1;
+  margin: 1.5rem auto 0;
+  pointer-events: auto;
 }
 
 @media (max-width: 900px) {
   .andoxa__object {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .contact__liquid {
     display: none;
   }
 }

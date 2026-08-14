@@ -66,20 +66,28 @@ if (!reducedMotion) {
   });
 }
 
-/* ---------- Glass Andoxa mark (lazy — pulls Three.js only when needed) ---------- */
+/* ---------- canvas-ui 3D objects (lazy — pull Three.js only when needed) ---------- */
 
-const glassCanvas = document.getElementById("andoxa-object");
-if (glassCanvas && !reducedMotion) {
+const lazyObjects = [
+  { el: document.getElementById("andoxa-object"), mount: "mountGlassLogo", done: false },
+  { el: document.getElementById("footer-liquid"), mount: "mountLiquidFooter", done: false },
+].filter((o) => o.el);
+
+if (lazyObjects.length && !reducedMotion) {
   const io = new IntersectionObserver(
     (entries) => {
-      if (entries.some((e) => e.isIntersecting)) {
-        io.disconnect();
-        import("./object.js").then(({ mountGlassLogo }) => mountGlassLogo(glassCanvas));
-      }
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const item = lazyObjects.find((o) => o.el === entry.target);
+        if (!item || item.done) return;
+        item.done = true;
+        io.unobserve(entry.target);
+        import("./object.js").then((mod) => mod[item.mount](item.el));
+      });
     },
     { rootMargin: "600px" }
   );
-  io.observe(glassCanvas);
+  lazyObjects.forEach((o) => io.observe(o.el));
 }
 
 /* ---------- Mobile menu (functional even with reduced motion) ---------- */
