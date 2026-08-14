@@ -66,6 +66,30 @@ if (!reducedMotion) {
   });
 }
 
+/* ---------- Mobile menu (functional even with reduced motion) ---------- */
+
+const menuBtn = document.getElementById("menu-btn");
+const menu = document.getElementById("menu");
+
+function setMenu(open) {
+  document.documentElement.classList.toggle("menu-open", open);
+  menuBtn?.setAttribute("aria-expanded", String(open));
+  menuBtn?.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  menu?.setAttribute("aria-hidden", String(!open));
+}
+
+menuBtn?.addEventListener("click", () => {
+  setMenu(!document.documentElement.classList.contains("menu-open"));
+});
+
+menu?.querySelectorAll("a").forEach((a) => {
+  a.addEventListener("click", () => setMenu(false));
+});
+
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") setMenu(false);
+});
+
 /* ---------- Split display words into chars ---------- */
 
 document.querySelectorAll("[data-split]").forEach((el) => {

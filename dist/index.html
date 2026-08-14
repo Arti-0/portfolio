@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover" />
     <script>document.documentElement.classList.add("js");</script>
     <title>Andréas Bodin — Developer, Designer, CTO</title>
     <meta
@@ -14,8 +14,8 @@
     <meta property="og:description" content="Building products from first sketch to shipped system." />
     <link rel="preload" href="/fonts/Archivo.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/FragmentMono.woff2" as="font" type="font/woff2" crossorigin />
-    <script type="module" crossorigin src="/assets/index-dFnsYjEL.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-HtFDbPf7.css">
+    <script type="module" crossorigin src="/assets/index-DsC7B4R-.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CcULtVf4.css">
   </head>
   <body>
     <!-- Loader -->
@@ -34,7 +34,24 @@
         <a href="/CV-Andreas-Bodin.pdf" download>CV</a>
         <a href="#contact" class="site-head__cta">Contact</a>
       </nav>
+      <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span>
+      </button>
     </header>
+
+    <!-- Mobile menu -->
+    <div class="menu" id="menu" aria-hidden="true">
+      <nav class="menu__nav" aria-label="Mobile">
+        <a href="#roles">Practice</a>
+        <a href="#andoxa">Andoxa</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="menu__cvs">
+        <a class="cv-btn mono" href="/CV-Andreas-Bodin.pdf" download>CV — Français ↓</a>
+        <a class="cv-btn mono" href="/CV-Andreas-Bodin-EN.pdf" download>Resume — English ↓</a>
+      </div>
+    </div>
 
     <main id="top">
       <!-- ============ HERO ============ -->
@@ -237,6 +254,10 @@
         <a class="contact__cta" href="mailto:andreas.bodin8@gmail.com" data-magnetic data-reveal>
           <span>andreas.bodin8@gmail.com</span>
         </a>
+        <div class="contact__cvs" data-reveal>
+          <a class="cv-btn mono" href="/CV-Andreas-Bodin.pdf" download>CV — Français ↓</a>
+          <a class="cv-btn mono" href="/CV-Andreas-Bodin-EN.pdf" download>Resume — English ↓</a>
+        </div>
         <footer class="footer">
           <p class="mono">© 2026 Andréas Bodin</p>
           <p class="mono">Built by hand — canvas-ui &amp; GSAP</p>

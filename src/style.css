@@ -658,14 +658,6 @@ a {
   align-items: baseline;
   padding: 1.6rem 0;
   border-bottom: 1px solid rgb(16 18 58 / 0.18);
-  opacity: 0;
-  transform: translateY(24px);
-}
-
-.no-js .work__row,
-html:not(.js) .work__row {
-  opacity: 1;
-  transform: none;
 }
 
 .work__index {
@@ -741,8 +733,6 @@ html:not(.js) .work__row {
 .work__oss {
   margin-top: 1.6rem;
   color: rgb(16 18 58 / 0.6);
-  opacity: 0;
-  transform: translateY(24px);
 }
 
 .work__oss a {
@@ -752,4 +742,160 @@ html:not(.js) .work__row {
 
 .work__oss a:hover {
   color: var(--flare);
+}
+
+/* ============================================================
+   Word integrity — split chars must never wrap mid-word
+   ============================================================ */
+
+.hero__word,
+.andoxa__word,
+.contact__title [data-split] {
+  white-space: nowrap;
+}
+
+/* ============================================================
+   CV buttons (contact section + mobile menu)
+   ============================================================ */
+
+.contact__cvs {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1.6rem;
+}
+
+.cv-btn {
+  border: 1px solid currentColor;
+  padding: 0.55rem 1.1rem;
+  border-radius: 99px;
+  text-decoration: none;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.cv-btn:hover {
+  color: var(--flare);
+}
+
+/* ============================================================
+   Mobile menu
+   ============================================================ */
+
+.menu-btn {
+  display: none;
+  position: fixed;
+  top: 0.95rem;
+  right: var(--gutter);
+  z-index: 90;
+  width: 2.6rem;
+  height: 2.6rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.42rem;
+  background: rgb(7 11 51 / 0.55);
+  border: 1px solid rgb(236 234 225 / 0.35);
+  border-radius: 99px;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.menu-btn span {
+  display: block;
+  width: 1.15rem;
+  height: 1.5px;
+  background: var(--bone);
+  transition: transform 0.3s ease;
+}
+
+.menu-open .menu-btn span:first-child {
+  transform: translateY(0.29rem) rotate(45deg);
+}
+
+.menu-open .menu-btn span:last-child {
+  transform: translateY(-0.29rem) rotate(-45deg);
+}
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3rem;
+  padding: var(--gutter);
+  background: var(--ultra);
+  color: var(--bone);
+  transform: translateY(-102%);
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  visibility: hidden;
+}
+
+.menu-open .menu {
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.menu__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.menu__nav a {
+  font-variation-settings: "wdth" 120;
+  font-weight: 850;
+  font-size: clamp(2.2rem, 9vw, 3.4rem);
+  line-height: 1.12;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.menu__nav a:active {
+  color: var(--flare);
+}
+
+.menu__cvs {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.menu-open,
+.menu-open body {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   Small screens
+   ============================================================ */
+
+@media (max-width: 720px) {
+  :root {
+    --display-xl: clamp(2.3rem, 12.5vw, 12.5rem);
+    --display-lg: clamp(2rem, 9.5vw, 6.5rem);
+  }
+
+  .site-head__nav {
+    display: none;
+  }
+
+  .menu-btn {
+    display: flex;
+  }
+
+  .hero__line--indent {
+    margin-left: clamp(0.75rem, 6vw, 9rem);
+  }
 }
