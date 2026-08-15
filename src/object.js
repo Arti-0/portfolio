@@ -1,5 +1,4 @@
 import { createGlassObject } from "./canvasui/GlassObjectVanilla.ts";
-import { createLiquidObject } from "./canvasui/LiquidObjectVanilla.ts";
 
 /**
  * canvas-ui 3D objects — this module carries Three.js (~500 KB raw), so it
@@ -48,27 +47,3 @@ export function mountGlassLogo(canvas) {
   return instance;
 }
 
-/* Liquid LET'S BUILD — the title itself, flat, carrying the liquid.
-   Near-zero extrusion, long-lens camera (fov 14) so there is no visible
-   perspective, low gloss and neutral lighting: it should read as the same
-   typographic title, only liquid under the cursor. Not manipulable. */
-export function mountLiquidTitle(canvas) {
-  return createLiquidObject(
-    { canvas },
-    {
-      src: "/lets-build.svg",
-      depth: 0.02,
-      bevel: 0,
-      gloss: 0.2,
-      environmentIntensity: 0.9,
-      fov: 14,
-      scale: 2.7,
-      highlight: "#ff8552",
-      tint: "",
-      background: "",
-      splash: 0,
-      orbit: false,
-      zoom: false,
-    }
-  );
-}

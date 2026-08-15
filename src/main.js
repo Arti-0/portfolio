@@ -82,9 +82,10 @@ const lazyObjects = [
     ? {
         el: liquidCanvas,
         observe: liquidWrap,
-        mount: "mountLiquidTitle",
         done: false,
         before: () => liquidWrap.classList.add("liquid-on"),
+        load: (el) =>
+          import("./liquid-text.js").then((mod) => mod.mountLiquidText(el, "/lets-build.svg")),
         onMounted: (el, instance) => {
           if (!instance) liquidWrap.classList.remove("liquid-on");
         },
@@ -101,10 +102,10 @@ if (lazyObjects.length && !reducedMotion) {
         item.done = true;
         io.unobserve(entry.target);
         item.before?.();
-        import("./object.js").then((mod) => {
-          const instance = mod[item.mount](item.el);
-          item.onMounted?.(item.el, instance);
-        });
+        const loading = item.load
+          ? item.load(item.el)
+          : import("./object.js").then((mod) => mod[item.mount](item.el));
+        loading.then((instance) => item.onMounted?.(item.el, instance));
       });
     },
     { rootMargin: "600px" }
