@@ -31,21 +31,35 @@ void main() {
   /* ambient sway — barely alive when the cursor is away */
   uv += 0.0022 * vec2(sin(vUv.y * 9.0 + uTime * 0.7), cos(vUv.x * 8.0 - uTime * 0.6));
 
+  /* cursor ripples — accumulated separately so their magnitude can drive color */
+  vec2 flow = vec2(0.0);
   for (int i = 0; i < ${MAX_RIPPLES}; i++) {
     vec4 r = uRipples[i];
     if (r.w <= 0.0) continue;
     float age = uTime - r.z;
-    if (age > 2.5) continue;
+    if (age > 3.0) continue;
     vec2 d = (vUv - r.xy) * vec2(uAspect, 1.0);
     float dist = length(d) + 1e-4;
-    float influence = exp(-dist * dist * 34.0) * exp(-age * 2.1);
+    float influence = exp(-dist * dist * 20.0) * exp(-age * 1.6);
     vec2 dir = d / dist;
     vec2 perp = vec2(-dir.y, dir.x);
-    uv += (perp * 0.7 + dir * 0.4) * influence * r.w / vec2(uAspect, 1.0);
+    flow += (perp * 0.7 + dir * 0.4) * influence * r.w / vec2(uAspect, 1.0);
   }
+  uv += flow;
 
+  float m = min(length(flow) * 22.0, 1.0);
+
+  /* chromatic split along the flow, then an iridescent shimmer scaled by
+     the disturbance — at rest m is 0 and the text stays pure white */
+  vec2 ca = flow * 0.4;
+  float rC = texture(uTex, clamp(uv + ca, 0.0, 1.0)).r;
   vec4 c = texture(uTex, clamp(uv, 0.0, 1.0));
-  outColor = vec4(c.rgb * c.a, c.a);
+  float bC = texture(uTex, clamp(uv - ca, 0.0, 1.0)).b;
+  vec3 col = vec3(rC, c.g, bC);
+  vec3 iri = 0.5 + 0.5 * cos(6.2832 * (m * 1.5 + uTime * 0.12 + vec3(0.0, 0.33, 0.67)));
+  col = mix(col, iri, m * 0.6 * c.a);
+
+  outColor = vec4(col * c.a, c.a);
 }`;
 
 function compile(gl, type, src) {
@@ -134,7 +148,7 @@ export function mountLiquidText(canvas, svgUrl) {
       const dt = Math.max(t - lastT, 1e-3);
       const speed = Math.hypot(x - lastX, y - lastY) / dt;
       lastX = x; lastY = y; lastT = t;
-      const strength = Math.min(0.004 + speed * 0.012, 0.05);
+      const strength = Math.min(0.006 + speed * 0.022, 0.09);
       const i = (rippleIdx++ % MAX_RIPPLES) * 4;
       ripples[i] = x;
       ripples[i + 1] = y;

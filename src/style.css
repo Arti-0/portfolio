@@ -523,7 +523,10 @@ a {
   text-transform: uppercase;
 }
 
+/* Blob button — gooey bone blobs flood the pill on hover (svg #goo filter) */
 .contact__cta {
+  z-index: 1;
+  position: relative;
   display: inline-block;
   align-self: flex-start;
   margin-top: clamp(2.5rem, 6vh, 4rem);
@@ -533,12 +536,67 @@ a {
   font-family: var(--font-mono);
   font-size: clamp(0.85rem, 1.6vw, 1.05rem);
   text-decoration: none;
-  transition: background-color 0.3s, color 0.3s;
+  background: transparent;
+  transition: color 0.5s;
+  cursor: pointer;
 }
 
 .contact__cta:hover {
-  background: var(--bone);
   color: var(--ultra);
+}
+
+.contact__cta-label {
+  position: relative;
+  z-index: 2;
+}
+
+.blob-btn__inner {
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 99px;
+}
+
+/* extra wrapper: in Firefox the blobs break overflow:hidden of the
+   element carrying the gooey filter */
+.blob-btn__blobs {
+  position: relative;
+  display: block;
+  height: 100%;
+  filter: url("#goo");
+}
+
+.blob-btn__blob {
+  position: absolute;
+  top: 1.5px;
+  width: 25%;
+  height: 100%;
+  background: var(--bone);
+  border-radius: 100%;
+  transform: translate3d(0, 150%, 0) scale(1.7);
+  transition: transform 0.45s;
+}
+
+@supports (filter: url("#goo")) {
+  .blob-btn__blob {
+    transform: translate3d(0, 150%, 0) scale(1.4);
+  }
+}
+
+.blob-btn__blob:nth-child(1) { left: 0%; transition-delay: 0s; }
+.blob-btn__blob:nth-child(2) { left: 30%; transition-delay: 0.08s; }
+.blob-btn__blob:nth-child(3) { left: 60%; transition-delay: 0.16s; }
+.blob-btn__blob:nth-child(4) { left: 90%; transition-delay: 0.24s; }
+
+.contact__cta:hover .blob-btn__blob {
+  transform: translateZ(0) scale(1.7);
+}
+
+@supports (filter: url("#goo")) {
+  .contact__cta:hover .blob-btn__blob {
+    transform: translateZ(0) scale(1.4);
+  }
 }
 
 .footer {
