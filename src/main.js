@@ -68,27 +68,39 @@ if (!reducedMotion) {
 
 /* ---------- canvas-ui 3D objects (lazy — pull Three.js only when needed) ---------- */
 
+const liquidCanvas = document.getElementById("contact-liquid");
+const liquidWrap = liquidCanvas?.closest(".contact__title-wrap");
+
 const lazyObjects = [
   { el: document.getElementById("andoxa-object"), mount: "mountGlassLogo", done: false },
-  {
-    el: document.getElementById("contact-liquid"),
-    mount: "mountLiquidTitle",
-    done: false,
-    onMounted: (el, instance) => {
-      if (instance) el.closest(".contact__title-wrap")?.classList.add("liquid-on");
-    },
-  },
-].filter((o) => o.el);
+  /* The liquid canvas starts display:none, and IntersectionObserver never
+     fires on an element without a box — so we observe the wrap, reveal the
+     canvas BEFORE mounting (the renderer needs a real clientWidth), and fall
+     back to the text title if the mount fails. Skipped under 721px where the
+     CSS hides the canvas anyway. */
+  window.matchMedia("(min-width: 721px)").matches && liquidCanvas && liquidWrap
+    ? {
+        el: liquidCanvas,
+        observe: liquidWrap,
+        mount: "mountLiquidTitle",
+        done: false,
+        before: () => liquidWrap.classList.add("liquid-on"),
+        onMounted: (el, instance) => {
+          if (!instance) liquidWrap.classList.remove("liquid-on");
+        },
+      }
+    : null,
+].filter((o) => o && o.el);
 
 if (lazyObjects.length && !reducedMotion) {
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const item = lazyObjects.find((o) => o.el === entry.target);
-        if (!item || item.done) return;
+        const item = lazyObjects.find((o) => (o.observe ?? o.el) === entry.target);
+        if (!entry.isIntersecting || !item || item.done) return;
         item.done = true;
         io.unobserve(entry.target);
+        item.before?.();
         import("./object.js").then((mod) => {
           const instance = mod[item.mount](item.el);
           item.onMounted?.(item.el, instance);
@@ -97,7 +109,7 @@ if (lazyObjects.length && !reducedMotion) {
     },
     { rootMargin: "600px" }
   );
-  lazyObjects.forEach((o) => io.observe(o.el));
+  lazyObjects.forEach((o) => io.observe(o.observe ?? o.el));
 }
 
 /* ---------- Mobile menu (functional even with reduced motion) ---------- */

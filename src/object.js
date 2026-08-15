@@ -26,9 +26,9 @@ export function mountGlassLogo(canvas) {
       tint: "",
       background: "",
       scale: 2.4,
-      floatIntensity: 0.5,
-      rotationIntensity: 0.5,
-      floatSpeed: 0.8,
+      floatIntensity: 0.7,
+      rotationIntensity: 0.75,
+      floatSpeed: 1.3,
       orbit: true,
       zoom: false,
       autoRotate: true,
@@ -39,7 +39,7 @@ export function mountGlassLogo(canvas) {
     const start = performance.now();
     const swing = (now) => {
       instance.setOptions({
-        autoRotateSpeed: Math.sin(((now - start) / 1000) * 0.45) * 2.4,
+        autoRotateSpeed: Math.sin(((now - start) / 1000) * 0.75) * 3.4,
       });
       requestAnimationFrame(swing);
     };
