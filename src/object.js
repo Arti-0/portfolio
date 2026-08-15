@@ -48,20 +48,24 @@ export function mountGlassLogo(canvas) {
   return instance;
 }
 
-/* Liquid LET'S BUILD — the contact title extruded and poured. Not
-   manipulable: no orbit, no zoom, no click splash; the liquid only answers
-   the passing cursor. */
+/* Liquid LET'S BUILD — the title itself, flat, carrying the liquid.
+   Near-zero extrusion, long-lens camera (fov 14) so there is no visible
+   perspective, low gloss and neutral lighting: it should read as the same
+   typographic title, only liquid under the cursor. Not manipulable. */
 export function mountLiquidTitle(canvas) {
   return createLiquidObject(
     { canvas },
     {
       src: "/lets-build.svg",
-      depth: 0.16,
-      bevel: 0.25,
+      depth: 0.02,
+      bevel: 0,
+      gloss: 0.2,
+      environmentIntensity: 0.9,
+      fov: 14,
+      scale: 2.7,
       highlight: "#ff8552",
       tint: "",
       background: "",
-      scale: 3.2,
       splash: 0,
       orbit: false,
       zoom: false,

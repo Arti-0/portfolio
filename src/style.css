@@ -947,9 +947,8 @@ a {
 
 .contact__title-liquid {
   display: none;
-  width: min(88vw, 54rem);
+  width: min(88vw, 62rem);
   aspect-ratio: 479 / 170;
-  margin-inline: auto;
   pointer-events: auto;
 }
 
