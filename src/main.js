@@ -70,7 +70,14 @@ if (!reducedMotion) {
 
 const lazyObjects = [
   { el: document.getElementById("andoxa-object"), mount: "mountGlassLogo", done: false },
-  { el: document.getElementById("footer-liquid"), mount: "mountLiquidFooter", done: false },
+  {
+    el: document.getElementById("contact-liquid"),
+    mount: "mountLiquidTitle",
+    done: false,
+    onMounted: (el, instance) => {
+      if (instance) el.closest(".contact__title-wrap")?.classList.add("liquid-on");
+    },
+  },
 ].filter((o) => o.el);
 
 if (lazyObjects.length && !reducedMotion) {
@@ -82,7 +89,10 @@ if (lazyObjects.length && !reducedMotion) {
         if (!item || item.done) return;
         item.done = true;
         io.unobserve(entry.target);
-        import("./object.js").then((mod) => mod[item.mount](item.el));
+        import("./object.js").then((mod) => {
+          const instance = mod[item.mount](item.el);
+          item.onMounted?.(item.el, instance);
+        });
       });
     },
     { rootMargin: "600px" }

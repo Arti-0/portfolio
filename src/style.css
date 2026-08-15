@@ -114,12 +114,17 @@ a {
   left: 0;
   right: 0;
   z-index: 50;
+  height: 4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.1rem var(--gutter);
+  padding: 0 var(--gutter);
   mix-blend-mode: difference;
   color: #fff;
+}
+
+.site-head__nav {
+  align-items: center;
 }
 
 .site-head__mark {
@@ -785,7 +790,7 @@ a {
 .menu-btn {
   display: none;
   position: fixed;
-  top: 0.95rem;
+  top: 0.7rem;
   right: var(--gutter);
   z-index: 90;
   width: 2.6rem;
@@ -934,11 +939,74 @@ a {
   font-size: clamp(2.6rem, 9vw, 8.5rem);
 }
 
-.contact__liquid {
-  width: min(60vw, 20rem);
-  aspect-ratio: 1;
-  margin: 1.5rem auto 0;
+/* Liquid LET'S BUILD — the canvas replaces the h2 visually once the effect
+   mounts; the h2 stays in the tree for screen readers and no-JS/no-motion */
+.contact__title-wrap {
+  position: relative;
+}
+
+.contact__title-liquid {
+  display: none;
+  width: min(88vw, 54rem);
+  aspect-ratio: 479 / 170;
+  margin-inline: auto;
   pointer-events: auto;
+}
+
+.liquid-on .contact__title-liquid {
+  display: block;
+}
+
+.liquid-on .contact__title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* CV dropdown in the header nav */
+.cv-nav {
+  position: relative;
+}
+
+.cv-nav__btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  opacity: 0.85;
+  cursor: pointer;
+  transition: opacity 0.25s;
+}
+
+.cv-nav__btn:hover {
+  opacity: 1;
+}
+
+.cv-nav__menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-top: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease;
+}
+
+.cv-nav:hover .cv-nav__menu,
+.cv-nav:focus-within .cv-nav__menu {
+  opacity: 1;
+  visibility: visible;
 }
 
 @media (max-width: 900px) {
@@ -948,7 +1016,16 @@ a {
 }
 
 @media (max-width: 720px) {
-  .contact__liquid {
+  .contact__title-liquid,
+  .liquid-on .contact__title-liquid {
     display: none;
+  }
+
+  .liquid-on .contact__title {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
   }
 }

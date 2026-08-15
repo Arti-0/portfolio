@@ -7,42 +7,61 @@ import { createLiquidObject } from "./canvasui/LiquidObjectVanilla.ts";
  * on a motion-enabled device.
  */
 
-/* Glass Andoxa mark — left of the ANDOXA title. Lightly manipulable: drag
-   to orbit, no zoom. */
+/* Glass Andoxa mark — left of the ANDOXA title. Thick glass; lightly
+   manipulable (drag to orbit, no zoom). The passive motion is a pendulum
+   turntable: the swing speed follows a sine, so the mark drifts one way,
+   slows, and swings back — combined with the built-in float and rocking it
+   never reads as a plain spin. */
 export function mountGlassLogo(canvas) {
-  return createGlassObject(
+  const instance = createGlassObject(
     { canvas },
     {
       src: "/andoxa-mark.svg",
       depth: 0.22,
       bevel: 0.35,
+      thickness: 0.85,
+      ior: 1.52,
+      dispersion: 0.5,
       highlight: "#ff8552",
       tint: "",
       background: "",
       scale: 2.4,
       floatIntensity: 0.5,
-      rotationIntensity: 0.4,
+      rotationIntensity: 0.5,
       floatSpeed: 0.8,
       orbit: true,
       zoom: false,
-      autoRotate: false,
+      autoRotate: true,
+      autoRotateSpeed: 0,
     }
   );
+  if (instance) {
+    const start = performance.now();
+    const swing = (now) => {
+      instance.setOptions({
+        autoRotateSpeed: Math.sin(((now - start) / 1000) * 0.45) * 2.4,
+      });
+      requestAnimationFrame(swing);
+    };
+    requestAnimationFrame(swing);
+  }
+  return instance;
 }
 
-/* Liquid footer mark — the four field bars in liquid. Not manipulable:
-   no orbit, no click splash; the liquid only answers the passing cursor. */
-export function mountLiquidFooter(canvas) {
+/* Liquid LET'S BUILD — the contact title extruded and poured. Not
+   manipulable: no orbit, no zoom, no click splash; the liquid only answers
+   the passing cursor. */
+export function mountLiquidTitle(canvas) {
   return createLiquidObject(
     { canvas },
     {
-      src: "/footer-mark.svg",
-      depth: 0.28,
-      bevel: 0.3,
+      src: "/lets-build.svg",
+      depth: 0.16,
+      bevel: 0.25,
       highlight: "#ff8552",
       tint: "",
       background: "",
-      scale: 2.2,
+      scale: 3.2,
       splash: 0,
       orbit: false,
       zoom: false,
