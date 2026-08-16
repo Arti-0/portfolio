@@ -89,7 +89,7 @@ const translations = {
       "L'infrastructure personnelle qui exécute des jobs Claude Code sur mes repos&nbsp;: worktrees git jetables, gates de vérification déterministes, streaming SSE multi-terminaux, commande vocale. ~79k lignes de TypeScript, dont un quart de tests.",
     "work.live": "En ligne ↗",
     "work.private": "Privé",
-    "work.oss": "Open source — des patterns de production&nbsp;:",
+    "work.oss": "Open source — patterns de production&nbsp;:",
     "xp.index": "Expérience",
     "xp.title": "Le chemin jusqu'ici.",
     "xp.dipfab": "CTO, data scientist &amp; ingénieur LLM",
