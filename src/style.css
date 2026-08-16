@@ -629,6 +629,13 @@ a {
     gap: 2.25rem;
   }
 
+  /* stacked: the 2px ink rule reads as a heavy divider — soften to match
+     the work/xp separators */
+  .role {
+    border-top-width: 1px;
+    border-top-color: rgb(16 18 58 / 0.2);
+  }
+
   .andoxa__meta {
     grid-template-columns: 1fr;
     gap: 1.25rem;
@@ -1020,6 +1027,69 @@ a {
   height: 1px;
   overflow: hidden;
   clip-path: inset(50%);
+}
+
+/* ============================================================
+   Language toggle (header + mobile menu)
+   currentColor everywhere: white under the header's difference
+   blend, bone inside the ultramarine menu
+   ============================================================ */
+
+.lang-toggle {
+  position: relative;
+  display: inline-flex;
+  padding: 0.2rem;
+  background: none;
+  border: 1px solid currentColor;
+  border-radius: 99px;
+  color: inherit;
+  cursor: pointer;
+  user-select: none;
+}
+
+.lang-toggle__thumb {
+  position: absolute;
+  top: 0.2rem;
+  bottom: 0.2rem;
+  left: 0.2rem;
+  width: calc(50% - 0.2rem);
+  background: currentColor;
+  border-radius: 99px;
+  transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.lang-toggle.is-fr .lang-toggle__thumb {
+  transform: translateX(100%);
+}
+
+.lang-toggle__opt {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  padding: 0.28rem 0.62rem;
+  opacity: 0.85;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.25s ease, opacity 0.25s ease;
+}
+
+.lang-toggle:not(.is-fr) .lang-toggle__opt[data-lang="en"],
+.lang-toggle.is-fr .lang-toggle__opt[data-lang="fr"] {
+  color: var(--ink);
+  opacity: 1;
+}
+
+.menu .lang-toggle__opt {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.9rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lang-toggle__thumb {
+    transition: none;
+  }
 }
 
 /* CV dropdown in the header nav */

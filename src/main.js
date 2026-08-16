@@ -1,6 +1,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { mountField } from "./effects.js";
+import { initI18n } from "./i18n.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -175,7 +176,9 @@ function scramble(el, duration = 850) {
 /* ---------- Manifesto: wrap words for scrubbed reveal ---------- */
 
 const manifesto = document.querySelector("[data-lines]");
-if (manifesto) {
+
+function wrapManifestoWords() {
+  if (!manifesto || manifesto.querySelector(".word")) return;
   const wrap = (node) => {
     const frag = document.createDocumentFragment();
     node.textContent.split(/(\s+)/).forEach((piece) => {
@@ -196,6 +199,48 @@ if (manifesto) {
     else [...node.childNodes].forEach(wrap);
   });
 }
+
+let manifestoScrub;
+
+function buildManifestoScrub() {
+  if (!manifesto) return;
+  manifestoScrub = gsap.fromTo(
+    manifesto.querySelectorAll(".word"),
+    { opacity: 0.6 },
+    {
+      opacity: 1,
+      stagger: 0.06,
+      ease: "none",
+      scrollTrigger: {
+        trigger: manifesto,
+        start: "top 78%",
+        end: "bottom 55%",
+        scrub: 0.4,
+      },
+    }
+  );
+}
+
+/* ---------- Language toggle (FR/EN) ---------- */
+
+initI18n({
+  /* a language swap replaces the manifesto's HTML — re-wrap the words and
+     rebuild the scrub tween that pointed at the old spans */
+  onManifestoSwap: () => {
+    wrapManifestoWords();
+    if (manifestoScrub) {
+      manifestoScrub.scrollTrigger?.kill();
+      manifestoScrub.kill();
+      buildManifestoScrub();
+    }
+  },
+  /* text lengths change — recompute trigger positions once the swap settles */
+  onAfterSwap: (animated) => {
+    if (animated) gsap.delayedCall(0.6, () => ScrollTrigger.refresh());
+  },
+});
+
+wrapManifestoWords();
 
 /* ---------- Motion ---------- */
 
@@ -244,23 +289,7 @@ if (reducedMotion) {
   });
 
   /* Manifesto: ink fills word by word as you scroll */
-  if (manifesto) {
-    gsap.fromTo(
-      manifesto.querySelectorAll(".word"),
-      { opacity: 0.6 },
-      {
-        opacity: 1,
-        stagger: 0.06,
-        ease: "none",
-        scrollTrigger: {
-          trigger: manifesto,
-          start: "top 78%",
-          end: "bottom 55%",
-          scrub: 0.4,
-        },
-      }
-    );
-  }
+  buildManifestoScrub();
 
   /* Big display words below the hero rise when reached */
   document

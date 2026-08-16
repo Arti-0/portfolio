@@ -27,9 +27,9 @@
     <header class="site-head">
       <a class="site-head__mark" href="#top" aria-label="AB — Andréas Bodin, back to top">AB<sup>®</sup></a>
       <nav class="site-head__nav" aria-label="Primary">
-        <a href="#roles">Practice</a>
+        <a href="#roles" data-i18n="nav.practice">Practice</a>
         <a href="#andoxa">Andoxa</a>
-        <a href="#work">Work</a>
+        <a href="#work" data-i18n="nav.work">Work</a>
         <div class="cv-nav">
           <button class="cv-nav__btn" type="button" aria-haspopup="true">CV ▾</button>
           <div class="cv-nav__menu">
@@ -37,6 +37,11 @@
             <a href="/CV-Andreas-Bodin-EN.pdf" download>English</a>
           </div>
         </div>
+        <button class="lang-toggle" type="button" aria-label="Version française">
+          <span class="lang-toggle__thumb" aria-hidden="true"></span>
+          <span class="lang-toggle__opt" data-lang="en">EN</span>
+          <span class="lang-toggle__opt" data-lang="fr">FR</span>
+        </button>
         <a href="#contact" class="site-head__cta">Contact</a>
       </nav>
     </header>
@@ -50,11 +55,16 @@
     <!-- Mobile menu -->
     <div class="menu" id="menu" aria-hidden="true">
       <nav class="menu__nav" aria-label="Mobile">
-        <a href="#roles">Practice</a>
+        <a href="#roles" data-i18n="nav.practice">Practice</a>
         <a href="#andoxa">Andoxa</a>
-        <a href="#work">Work</a>
+        <a href="#work" data-i18n="nav.work">Work</a>
         <a href="#contact">Contact</a>
       </nav>
+      <button class="lang-toggle" type="button" aria-label="Version française">
+        <span class="lang-toggle__thumb" aria-hidden="true"></span>
+        <span class="lang-toggle__opt" data-lang="en">EN</span>
+        <span class="lang-toggle__opt" data-lang="fr">FR</span>
+      </button>
       <div class="menu__cvs">
         <a class="cv-btn mono" href="/CV-Andreas-Bodin.pdf" download>CV — Français ↓</a>
         <a class="cv-btn mono" href="/CV-Andreas-Bodin-EN.pdf" download>Resume — English ↓</a>
@@ -68,23 +78,23 @@
         <canvas class="hero__canvas" data-field-output aria-hidden="true"></canvas>
         <canvas data-field-source hidden aria-hidden="true"></canvas>
         <div class="hero__inner">
-          <p class="hero__eyebrow mono" data-reveal data-scramble>Portfolio — 2026&ensp;/&ensp;Based in France</p>
+          <p class="hero__eyebrow mono" data-reveal data-scramble data-i18n="hero.eyebrow">Portfolio — 2026&ensp;/&ensp;Based in France</p>
           <h1 class="hero__title" aria-label="Andréas Bodin">
             <span class="hero__line"><span class="hero__word" data-split>ANDRÉAS</span></span>
             <span class="hero__line hero__line--indent"><span class="hero__word" data-split>BODIN</span></span>
           </h1>
           <div class="hero__foot">
-            <p class="hero__roles mono" data-reveal>
+            <p class="hero__roles mono" data-reveal data-i18n="hero.roles">
               <span>DEV</span> — Web developer&ensp;·&ensp;<span>DSN</span> — UI/UX designer&ensp;·&ensp;<span>CTO</span> — Andoxa
             </p>
-            <p class="hero__scroll mono" data-reveal aria-hidden="true">Scroll ↓</p>
+            <p class="hero__scroll mono" data-reveal aria-hidden="true" data-i18n="hero.scroll">Scroll ↓</p>
           </div>
         </div>
       </section>
 
       <!-- ============ MANIFESTO ============ -->
       <section class="manifesto section--bone" id="about">
-        <p class="manifesto__text" data-lines>
+        <p class="manifesto__text" data-lines data-i18n="manifesto">
           I build products end to end — the code, the interface, and the
           company around both. Three internships taught me how teams ship.
           <em>Andoxa</em> is teaching me how companies are built.
@@ -94,14 +104,14 @@
       <!-- ============ PRACTICE / ROLES ============ -->
       <section class="roles section--bone" id="roles">
         <header class="section-head" data-reveal>
-          <span class="section-head__index mono" data-scramble>Practice</span>
-          <h2 class="section-head__title">Three hats,<br />one craft.</h2>
+          <span class="section-head__index mono" data-scramble data-i18n="nav.practice">Practice</span>
+          <h2 class="section-head__title" data-i18n="practice.title">Three hats,<br />one craft.</h2>
         </header>
         <div class="roles__grid">
           <article class="role" data-reveal>
             <span class="role__code mono">DEV</span>
-            <h3 class="role__name">Engineering</h3>
-            <p class="role__desc">
+            <h3 class="role__name" data-i18n="role.dev.name">Engineering</h3>
+            <p class="role__desc" data-i18n="role.dev.desc">
               Full-stack web — TypeScript, React, Node and the infrastructure
               underneath. I care about systems that stay simple as they grow.
             </p>
@@ -109,7 +119,7 @@
           <article class="role" data-reveal>
             <span class="role__code mono">DSN</span>
             <h3 class="role__name">Design</h3>
-            <p class="role__desc">
+            <p class="role__desc" data-i18n="role.dsn.desc">
               UI/UX from first wireframe to living design system. I design the
               interfaces I build, so nothing gets lost in the handoff.
             </p>
@@ -117,7 +127,7 @@
           <article class="role" data-reveal>
             <span class="role__code mono">CTO</span>
             <h3 class="role__name">Direction</h3>
-            <p class="role__desc">
+            <p class="role__desc" data-i18n="role.cto.desc">
               Technical leadership at Andoxa — architecture, roadmap and the
               hundred decisions that live between the lines of code.
             </p>
@@ -128,7 +138,7 @@
       <!-- ============ ANDOXA ============ -->
       <section class="andoxa section--ultra" id="andoxa">
         <div class="andoxa__inner">
-          <p class="andoxa__eyebrow mono" data-reveal>Currently — 2025 → now</p>
+          <p class="andoxa__eyebrow mono" data-reveal data-i18n="andoxa.eyebrow">Currently — 2025 → now</p>
           <div class="andoxa__row">
             <canvas class="andoxa__object" id="andoxa-object" aria-hidden="true"></canvas>
             <h2 class="andoxa__title" aria-label="Andoxa">
@@ -136,9 +146,9 @@
             </h2>
           </div>
           <div class="andoxa__meta" data-reveal>
-            <p class="andoxa__role">Co-founder &amp; CTO</p>
+            <p class="andoxa__role" data-i18n="andoxa.role">Co-founder &amp; CTO</p>
             <div>
-              <p class="andoxa__desc">
+              <p class="andoxa__desc" data-i18n="andoxa.desc">
                 I lead product and engineering at Andoxa, a B2B SaaS built on
                 French public data — and I write all of it: two full product
                 generations, from the first architecture diagram to production.
@@ -147,7 +157,7 @@
               </p>
               <p class="andoxa__links">
                 <a class="andoxa__link mono" href="https://andoxa.fr" target="_blank" rel="noopener">andoxa.fr ↗</a>
-                <a class="andoxa__link mono" href="https://github.com/Arti-0/Ciel" target="_blank" rel="noopener">V1 source — Ciel ↗</a>
+                <a class="andoxa__link mono" href="https://github.com/Arti-0/Ciel" target="_blank" rel="noopener" data-i18n="andoxa.v1">V1 source — Ciel ↗</a>
               </p>
             </div>
           </div>
@@ -157,27 +167,27 @@
       <!-- ============ SELECTED WORK ============ -->
       <section class="work section--bone" id="work">
         <header class="section-head" data-reveal>
-          <span class="section-head__index mono" data-scramble>Selected work</span>
-          <h2 class="section-head__title">Built, shipped,<br />documented.</h2>
+          <span class="section-head__index mono" data-scramble data-i18n="work.index">Selected work</span>
+          <h2 class="section-head__title" data-i18n="work.title">Built, shipped,<br />documented.</h2>
         </header>
         <ol class="work__list">
           <li class="work__row" data-reveal>
             <span class="work__index mono">01</span>
             <div class="work__body">
               <h3 class="work__name">Andoxa — V2</h3>
-              <p class="work__desc">
+              <p class="work__desc" data-i18n="work.01.desc">
                 Gov-data enrichment for B2B prospecting. Next.js 16, Convex,
                 Clerk, an AI planning agent with hard cost caps, and
                 GDPR-by-design data machinery. In production.
               </p>
             </div>
-            <a class="work__link mono" href="https://andoxa.fr" target="_blank" rel="noopener">Live ↗</a>
+            <a class="work__link mono" href="https://andoxa.fr" target="_blank" rel="noopener" data-i18n="work.live">Live ↗</a>
           </li>
           <li class="work__row" data-reveal>
             <span class="work__index mono">02</span>
             <div class="work__body">
               <h3 class="work__name">Ciel — Andoxa V1</h3>
-              <p class="work__desc">
+              <p class="work__desc" data-i18n="work.02.desc">
                 A year of solo product engineering, source-visible: multi-tenant
                 CRM on Postgres row-level security, Stripe billing, 29
                 Playwright suites, ~141k lines of TypeScript.
@@ -188,19 +198,19 @@
           <li class="work__row" data-reveal>
             <span class="work__index mono">03</span>
             <div class="work__body">
-              <h3 class="work__name">Agent orchestration platform</h3>
-              <p class="work__desc">
+              <h3 class="work__name" data-i18n="work.03.name">Agent orchestration platform</h3>
+              <p class="work__desc" data-i18n="work.03.desc">
                 Personal infrastructure that runs Claude Code jobs across my
                 repos: disposable git worktrees, deterministic verify gates,
                 multi-terminal SSE streaming, voice input. ~79k lines of
                 TypeScript, a quarter of it tests.
               </p>
             </div>
-            <span class="work__link work__link--flat mono">Private</span>
+            <span class="work__link work__link--flat mono" data-i18n="work.private">Private</span>
           </li>
         </ol>
         <p class="work__oss mono" data-reveal>
-          Open source — production patterns:&ensp;
+          <span data-i18n="work.oss">Open source — production patterns:</span>&ensp;
           <a href="https://github.com/Arti-0/edge-webhooks" target="_blank" rel="noopener">edge-webhooks ↗</a>&ensp;
           <a href="https://github.com/Arti-0/french-open-data" target="_blank" rel="noopener">french-open-data ↗</a>&ensp;
           <a href="https://github.com/Arti-0/escrow-ledger" target="_blank" rel="noopener">escrow-ledger ↗</a>&ensp;
@@ -211,28 +221,28 @@
       <!-- ============ EXPERIENCE ============ -->
       <section class="xp section--bone" id="experience">
         <header class="section-head" data-reveal>
-          <span class="section-head__index mono" data-scramble>Experience</span>
-          <h2 class="section-head__title">The road here.</h2>
+          <span class="section-head__index mono" data-scramble data-i18n="xp.index">Experience</span>
+          <h2 class="section-head__title" data-i18n="xp.title">The road here.</h2>
         </header>
         <ol class="xp__list">
           <li class="xp__row" data-reveal>
             <span class="xp__year mono">2025 —</span>
-            <span class="xp__role">Co-founder &amp; CTO</span>
+            <span class="xp__role" data-i18n="andoxa.role">Co-founder &amp; CTO</span>
             <span class="xp__org">Andoxa</span>
           </li>
           <li class="xp__row" data-reveal>
             <span class="xp__year mono">2023</span>
-            <span class="xp__role">CTO, Data Scientist &amp; LLM Engineer</span>
+            <span class="xp__role" data-i18n="xp.dipfab">CTO, Data Scientist &amp; LLM Engineer</span>
             <span class="xp__org">DipFab</span>
           </li>
           <li class="xp__row" data-reveal>
             <span class="xp__year mono">2022</span>
-            <span class="xp__role">Back-end Developer &amp; UX/UI Designer</span>
+            <span class="xp__role" data-i18n="xp.coxidev">Back-end Developer &amp; UX/UI Designer</span>
             <span class="xp__org">Coxidev</span>
           </li>
           <li class="xp__row" data-reveal>
             <span class="xp__year mono">2022</span>
-            <span class="xp__role">Web Developer &amp; UX/UI Designer</span>
+            <span class="xp__role" data-i18n="xp.decrease">Web Developer &amp; UX/UI Designer</span>
             <span class="xp__org">Decrease</span>
           </li>
         </ol>
@@ -258,7 +268,7 @@
       <section class="contact section--ultra" id="contact">
         <canvas class="field-layer" data-field-output aria-hidden="true"></canvas>
         <canvas data-field-source hidden aria-hidden="true"></canvas>
-        <p class="contact__eyebrow mono" data-reveal>Open to ambitious projects</p>
+        <p class="contact__eyebrow mono" data-reveal data-i18n="contact.eyebrow">Open to ambitious projects</p>
         <div class="contact__title-wrap">
           <canvas class="contact__title-liquid" id="contact-liquid" aria-hidden="true"></canvas>
           <h2 class="contact__title" aria-label="Let's build.">
@@ -285,7 +295,7 @@
         <footer class="footer">
           <p class="mono">© 2026 Andréas Bodin</p>
           <p class="mono"><a href="https://github.com/Arti-0" target="_blank" rel="noopener">github.com/Arti-0 ↗</a></p>
-          <p class="mono">Built by hand — canvas-ui &amp; GSAP</p>
+          <p class="mono" data-i18n="footer.built">Built by hand — canvas-ui &amp; GSAP</p>
         </footer>
       </section>
     </main>
